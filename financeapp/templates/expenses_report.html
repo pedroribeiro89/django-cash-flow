@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        h1 { text-align: center }
+        h1 span { color: red }
+    </style>
+</head>
+<body>
+    {% if expenses_list %}
+
+        <table>
+          <tr>
+              <th>Description</th>
+              <th>Classification</th>
+              <th>Due Date</th>
+              <th>Payment Date</th>
+              <th>Value</th>
+              <th>Payment Method</th>
+              <th>Status</th>
+          </tr>
+            {% for expense in expenses_list %}
+              <tr>
+                  <td>{{expense.description}}</td>
+                  <td>{{expense.classification}}</td>
+                  <td>{{expense.due_date}}</td>
+                  {% if expense.payment_date %}
+                    <td>{{expense.payment_date}}</td>
+                  {% else %}
+                    <td>-</td>
+                  {% endif %}
+                  <td>{{expense.value}}</td>
+                  <td>{{expense.payment_method}}</td>
+                  <td>{{expense.status}}</td>
+              </tr>
+            {% endfor %}
+        </table>
+        <h1>Total: <span>-{{total}}</span></h1>
+    {% else %}
+        <p>No expenses.</p>
+    {% endif %}
+</body>
+</html>

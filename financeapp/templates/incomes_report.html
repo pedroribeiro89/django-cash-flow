@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        h1 { text-align: center }
+        h1 span { color: blue }
+    </style>
+</head>
+<body>
+    {% if incomes_list %}
+        <table>
+          <tr>
+              <th>Description</th>
+              <th>Classification</th>
+              <th>Expected Payment Date</th>
+              <th>Value</th>
+              <th>Payment Method</th>
+              <th>Status</th>
+          </tr>
+            {% for income in incomes_list %}
+              <tr>
+                  <td>{{income.description}}</td>
+                  <td>{{income.classification}}</td>
+                  <td>{{income.expected_payment_date}}</td>
+                  <td>{{income.value}}</td>
+                  <td>{{income.payment_method}}</td>
+                  <td>{{income.status}}</td>
+              </tr>
+            {% endfor %}
+        </table>
+        <h1>Total: <span>+{{total}}</span></h1>
+    {% else %}
+        <p>No incomes.</p>
+    {% endif %}
+</body>
+</html>

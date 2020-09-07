@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expected Cash flow</title>
+    <style>
+        .title { font-size: 35px }
+        article h1 { text-align: center; font-size: 30px; }
+        article section h2 { text-align: center; font-size: 20px; }
+        article section p { text-align: right; }
+        article section p span { font-size: 30px; }
+        .income { color: blue; }
+        .expenses { color: red; }
+
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        .balance { text-align: center; font-size: 30px; }
+        .positive_balance { color: blue; }
+        .negative_balance { color: red; }
+        hr { border-top: 5px solid black; }
+    </style>
+</head>
+<body>
+{% for month in month_cashflow %}
+    <h1 class="title">Expected Cash flow</h1>
+    <article>
+        <h1>{{month.month}}</h1>
+        <section>
+            <h2>Incomes</h2>
+            <table>
+              <tr>
+                  <th>Description</th>
+                  <th>Classification</th>
+                  <th>Value</th>
+              </tr>
+                {% for income in month.incomes %}
+                  <tr>
+                      <td>{{income.description}}</td>
+                      <td>{{income.classification}}</td>
+                      <td>{{income.value}}</td>
+                  </tr>
+                {% endfor %}
+            </table>
+            <p>TOTAL INCOMES: <span class="income">+{{month.income_total}}</span></p>
+        </section>
+        <section>
+            <h2>Expenses</h2>
+            <table>
+              <tr>
+                  <th>Description</th>
+                  <th>Classification</th>
+                  <th>Value</th>
+              </tr>
+                {% for expense in month.expenses %}
+                  <tr>
+                      <td>{{expense.description}}</td>
+                      <td>{{expense.classification}}</td>
+                      <td>{{expense.value}}</td>
+                  </tr>
+                {% endfor %}
+            </table>
+            <p>TOTAL EXPENSES: <span class="expenses">-{{month.expenses_total}}</span></p>
+        </section>
+    </article>
+    {% if month.balance < 0 %}
+        <p class="balance">MONTH BALANCE: <span class="negative_balance">{{month.balance}}</span></p>
+    {% else %}
+        <p class="balance">MONTH BALANCE: <span class="positive_balance">{{month.balance}}</span></p>
+    {% endif %}
+
+
+    <hr>
+{% endfor %}
+</body>
+</html>
+
